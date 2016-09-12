@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="Capture">Capture</string>
+  <string name="Select">Select</string>
+  <string name="ApplicationName">Mathematician</string>
+  <string name="NoCameraApp">No camera app on the device</string>
+  <string name="SelectPicture">Select picture</string>
+  <string name="ExtractedText">Extracted text</string>
+  <string name="Solve">Solve</string>
+  <string name="Result">Result</string>
+  <string name="Description">Description</string>
+  <string name="WikiQueryError">Ooops something bad happend!</string>
+</resources>
