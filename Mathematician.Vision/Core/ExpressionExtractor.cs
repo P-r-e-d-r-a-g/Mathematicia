@@ -1,4 +1,4 @@
-using Mathematician.Vision.Core;
+using Mathematician.Vision.JavaBinding;
 using OpenCV.Core;
 using OpenCV.ImgProc;
 using System;
@@ -65,14 +65,15 @@ namespace Mathematician.Vision.Core
             image.CopyTo(imageCopy);
             ISet<Rect> rectangles = new SortedSet<Rect>(new RectComparer());
 
-            List<MatOfPoint> contours = new List<MatOfPoint>();
+            Java.Util.ArrayList contours = new Java.Util.ArrayList();
             Mat hierarchy = new Mat();
 
-            Imgproc.FindContours(imageCopy, contours, hierarchy, Imgproc.RetrExternal, Imgproc.ChainApproxNone);
+            JavaBindingHelper.Imgproc_FindContours(imageCopy, contours, hierarchy, Imgproc.RetrExternal, Imgproc.ChainApproxTc89Kcos);
 
-            foreach (MatOfPoint c in contours)
+            for (int i = 0; i < contours.Size(); i++)
             {
-                rectangles.Add(expand(imageCopy, Imgproc.BoundingRect(c), 1));
+                MatOfPoint contour = (MatOfPoint)contours.Get(i);
+                rectangles.Add(ExpressionExtractor.expand(imageCopy, Imgproc.BoundingRect(contour), 1));
             }
 
             return rectangles;
