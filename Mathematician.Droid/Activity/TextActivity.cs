@@ -12,6 +12,7 @@ using Mathematician.Droid.Util;
 using System.Xml.Serialization;
 using System.IO;
 using Mathematician.Common;
+using Android.Support.Design.Widget;
 
 namespace Mathematician.Droid
 {
@@ -20,7 +21,7 @@ namespace Mathematician.Droid
     {
         #region view components
         private EditText textArea;
-        private Button solveButton;
+        private FloatingActionButton solveButton;
         #endregion
 
         private string extractedText;
@@ -54,7 +55,7 @@ namespace Mathematician.Droid
         {
             textArea = FindViewById<EditText>(Resource.Id.TextArea);
 
-            solveButton = FindViewById<Button>(Resource.Id.SolveButton);
+            solveButton = FindViewById<FloatingActionButton>(Resource.Id.SolveButton);
         }
 
         /// <summary>

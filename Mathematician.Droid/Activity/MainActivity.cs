@@ -16,11 +16,14 @@ using Mathematician.Common.AppStart;
 using Mathematician.Common;
 using Mathematician.Common.WikiAPI.Output;
 using OpenCV.Android;
+using Android.Support.Design.Widget;
+using Android.Support.V7.App;
+using Android.Preferences;
 
 namespace Mathematician.Droid
 {
     [Activity(Label = "Mathematician", MainLauncher = true, Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    public class MainActivity : AppCompatActivity
     {
         public static string IMAGE_DIR = "/sdcard/Mathematician/Images";
         public static string IMAGE_FILE_PATTERN = "solver_{0}.jpg";
@@ -41,8 +44,8 @@ namespace Mathematician.Droid
 
         #region view components
         private TextView feedView;
-        private Button captureButton;
-        private Button selectButton;
+        private FloatingActionButton enterTextButton;
+        private FloatingActionButton selectButton;
         #endregion
 
         protected ITextExtractor TextExtractor
@@ -71,19 +74,11 @@ namespace Mathematician.Droid
 
             registerViews();
 
-            feedView.SetText(getFeed().Text, TextView.BufferType.Normal);
+            feedView.SetText(getAndCacheFeed(), TextView.BufferType.Normal);
 
             selectButton.Click += selectImage;
 
-            if (isThereAnAppToTakePictures())
-            {
-                createDirectoryForPictures();
-                captureButton.Click += takeAPicture;
-            }
-            else
-            {
-                captureButton.Click += noCameraMessage;
-            }
+            enterTextButton.Click += gotoTextActivity;
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -180,9 +175,10 @@ namespace Mathematician.Droid
         /// </summary>
         private void registerViews()
         {
-            captureButton = FindViewById<Button>(Resource.Id.CaptureButton);
-            selectButton = FindViewById<Button>(Resource.Id.SelectButton);
+            selectButton = FindViewById<FloatingActionButton>(Resource.Id.SelectButton);
+            enterTextButton = FindViewById<FloatingActionButton>(Resource.Id.EnterTextButton);
             feedView = FindViewById<TextView>(Resource.Id.FeedResult);
+            feedView.MovementMethod = new Android.Text.Method.ScrollingMovementMethod();
         }
 
         /// <summary>
@@ -200,7 +196,7 @@ namespace Mathematician.Droid
         /// Checks if there is an camera app
         /// </summary>
         /// <returns></returns>
-        private bool isThereAnAppToTakePictures()
+        private bool cameraAppExists()
         {
             Intent intent = new Intent(MediaStore.ActionImageCapture);
             IList<ResolveInfo> availableActivities =
@@ -245,6 +241,16 @@ namespace Mathematician.Droid
         }
 
         /// <summary>
+        /// Opens activity for entering text directly
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void gotoTextActivity(object sender, EventArgs e)
+        {
+            startTextActivity("");
+        }
+
+        /// <summary>
         /// Starts text activity for given extracted text
         /// </summary>
         /// <param name="extractedText"></param>
@@ -263,15 +269,27 @@ namespace Mathematician.Droid
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        private WikiQueryResult getFeed()
+        private string getAndCacheFeed()
         {
+            string name = FeedHelper.GetName();
+
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+
+            if (prefs.Contains(name))
+            {
+                return prefs.GetString(name, Resources.GetString(Resource.String.WikiQueryError));
+            }
+
             try
             {
-                return QueryService.ExecuteQuery(FeedHelper.GetName()) as WikiQueryResult;
+                string text = (QueryService.ExecuteQuery(name) as WikiQueryResult).Text;
+                prefs.Edit().PutString(name, text);
+                prefs.Edit().Commit();
+                return text;
             }
             catch (Exception)
             {
-                return new WikiQueryResult() { Text = Resources.GetString(Resource.String.WikiQueryError) };
+                return Resources.GetString(Resource.String.WikiQueryError);
             }
         }
 

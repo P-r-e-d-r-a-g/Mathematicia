@@ -3,27 +3,30 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/apod"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/podTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Result" />
+  <LinearLayout
+      android:id="@+id/apod"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
     <TextView
-            android:id="@+id/podContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Result" />
-        <!--<ImageView
-            android:id="@+id/podContent"
+        android:id="@+id/podTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Result"
+        android:capitalize="characters"
+        android:shadowColor="#D8D8D8"
+        android:textSize="24sp" />
+    <TextView
+        android:id="@+id/podContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Result"
+        android:textSize="16sp" />
+    <ImageView
+            android:id="@+id/podContentImg"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/icon"
-            android:scaleType="fit_center"
-            android:contentDescription="@string/Description"/>-->
-    </LinearLayout>
+            android:contentDescription="@string/Description"/>
+  </LinearLayout>
 </LinearLayout>

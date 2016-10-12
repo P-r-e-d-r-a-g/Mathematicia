@@ -19,14 +19,14 @@ namespace Mathematician.Common.AlphaAPI
         protected const string BaseUrl = "http://api.wolframalpha.com/v2/query?";
         protected const string AppId = "Q4QRXG-VJLA6Y5EPL";
         protected const string Format = "plaintext,image";
-        protected const string IncludePodId = "";//skip for now (e.g. get all pods)
+        protected const string ExcludePodId = "Plot,RootPlot,NumberLine";
         protected const string Width = "500";
 
         private string requestBody;
 
         public AlphaWebRequest()
         {
-            requestBody = string.Format("{0}appid={1}&format={2}&width={3}&plotwidth={4}&input=", BaseUrl, AppId, Format, Width, Width);
+            requestBody = string.Format("{0}appid={1}&format={2}&width={3}&plotwidth={4}&excludepodid={5}&input=", BaseUrl, AppId, Format, Width, Width, ExcludePodId);
         }
 
         public Stream CreateRequest(string query)
