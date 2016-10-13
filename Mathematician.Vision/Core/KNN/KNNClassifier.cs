@@ -20,7 +20,7 @@ namespace Mathematician.Vision.Core.KNN
             this.classesMap = classesMap;
         }
 
-        public String Classify(Mat image)
+        public string Classify(Mat image)
         {
             float nearest = knn.FindNearest(KNNFeatureExtractor.Extract(image), 4, results, neighborResponses, dists);
             return classesMap[nearest];

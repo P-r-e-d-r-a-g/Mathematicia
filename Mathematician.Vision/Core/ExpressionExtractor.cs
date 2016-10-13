@@ -41,14 +41,14 @@ namespace Mathematician.Vision.Core
         protected Mat prepareImage(Mat image)
         {
             Mat result = new Mat(image.Size(), CvType.Cv8uc1);
+
+            Imgproc.CvtColor(image, result, Imgproc.ColorBgr2gray);
             // smoothing the image
-            Imgproc.GaussianBlur(image, result, GaussianBlurSize, 0);
+            Imgproc.GaussianBlur(result, result, GaussianBlurSize, 0);
             // binarize it
             Imgproc.AdaptiveThreshold(result, result, 255, Imgproc.AdaptiveThreshMeanC, Imgproc.ThreshBinary, 75, 10);
             // invert black and white (background is black now, text is white)
             OpenCV.Core.Core.Bitwise_not(result, result);
-
-            // TODO text angle checking and handling
 
             return result;
         }

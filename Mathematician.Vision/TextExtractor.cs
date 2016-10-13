@@ -28,8 +28,7 @@ namespace Mathematician.Vision
 
         public string ExtractText(string pathToImage)
         {
-            Mat imageMat = Imgcodecs.Imread(pathToImage, CvType.Cv8uc1);// new Mat(image.Height, image.Width, CvType.Cv8uc4);
-            //Utils.BitmapToMat(image, imageMat);
+            Mat imageMat = Imgcodecs.Imread(pathToImage, Imgcodecs.CvLoadImageColor);
 
             Expression e = ExpressionExtractor.ExtractExpression(imageMat);
 
