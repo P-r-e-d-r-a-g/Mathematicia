@@ -4,41 +4,48 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/FeedResult"
-        android:layout_width="fill_parent"
+  <TextView
+      android:id="@+id/FeedResult"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:padding="15dp"
+      android:layout_weight="0.83"
+      android:scrollbars="vertical"
+      android:lines="10000" />
+  <View
+      android:layout_width="fill_parent"
+      android:layout_height="2dp"
+      android:background="#1976D2" />
+  <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:layout_weight="0.15"
+      android:gravity="center">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/EnterTextButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:layout_weight="0.83"
-        android:scrollbars="vertical"
-        android:lines="10000" />
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:background="#1976D2" />
-    <LinearLayout
-        android:layout_width="fill_parent"
+        android:text="@string/Capture"
+        android:src="@drawable/text"
+        android:padding="10dp"
+        android:layout_gravity="bottom|left"
+        app:layout_anchorGravity="bottom|right|end" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/SelectButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="0.15"
-        android:gravity="center">
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/EnterTextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Capture"
-            android:src="@drawable/text"
-            android:padding="10dp"
-            android:layout_gravity="bottom|left"
-            app:layout_anchorGravity="bottom|right|end" />
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/SelectButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Select"
-            android:src="@drawable/image"
-            android:padding="10dp"
-            android:layout_gravity="bottom|right"
-            app:layout_anchorGravity="bottom|right|end" />
-    </LinearLayout>
+        android:text="@string/Select"
+        android:src="@drawable/image"
+        android:padding="10dp"
+        android:layout_gravity="bottom|right"
+        app:layout_anchorGravity="bottom|right|end" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/ReloadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Select"
+        android:src="@drawable/reload"
+        android:padding="10dp" />
+  </LinearLayout>
 </LinearLayout>

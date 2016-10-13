@@ -46,6 +46,7 @@ namespace Mathematician.Droid
         private TextView feedView;
         private FloatingActionButton enterTextButton;
         private FloatingActionButton selectButton;
+        private FloatingActionButton reloadButton;
         #endregion
 
         protected ITextExtractor TextExtractor
@@ -73,12 +74,13 @@ namespace Mathematician.Droid
             SetContentView(Resource.Layout.Main);
 
             registerViews();
-
-            feedView.SetText(getAndCacheFeed(), TextView.BufferType.Normal);
+            setFeed();
 
             selectButton.Click += selectImage;
 
             enterTextButton.Click += gotoTextActivity;
+
+            reloadButton.Click += reloadFeed;
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -177,6 +179,7 @@ namespace Mathematician.Droid
         {
             selectButton = FindViewById<FloatingActionButton>(Resource.Id.SelectButton);
             enterTextButton = FindViewById<FloatingActionButton>(Resource.Id.EnterTextButton);
+            reloadButton = FindViewById<FloatingActionButton>(Resource.Id.ReloadButton);
             feedView = FindViewById<TextView>(Resource.Id.FeedResult);
             feedView.MovementMethod = new Android.Text.Method.ScrollingMovementMethod();
         }
@@ -248,6 +251,24 @@ namespace Mathematician.Droid
         private void gotoTextActivity(object sender, EventArgs e)
         {
             startTextActivity("");
+        }
+
+        /// <summary>
+        /// Reloads feed text.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void reloadFeed(object sender, EventArgs e)
+        {
+            setFeed();
+        }
+
+        /// <summary>
+        /// Sets feed text.
+        /// </summary>
+        private void setFeed()
+        {
+            feedView.SetText(getAndCacheFeed(), TextView.BufferType.Normal);
         }
 
         /// <summary>
